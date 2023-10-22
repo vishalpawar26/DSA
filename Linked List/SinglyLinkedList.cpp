@@ -55,10 +55,10 @@ void insertAtPosition(Node* &head, Node* &tail, int position, int data) {
         return;
     }
 
-    // create a temp node and asign it to the head
+    // create a temp node and assign it to the head
     Node* temp = head;
 
-    // traverse the linked list to the index of position-1
+    // traverse the linked list 
     int cnt = 1;
     while (cnt < position-1) {
         temp = temp->next;
@@ -74,7 +74,7 @@ void insertAtPosition(Node* &head, Node* &tail, int position, int data) {
     // create a new node
     Node* nodeToInsert = new Node(data);
 
-    // point the new node to the node at index of position
+    // point the new node to the node at the index of position
     nodeToInsert -> next = temp -> next;
 
     // point the node at the index of position-1 to the new node
@@ -154,7 +154,7 @@ void deleteByValue(int value, Node* &head, Node* &tail) {
 }
 
 void print(Node* &head) {
-    // create a temp node and asign it to the head
+    // create a temp node and assign it to the head
     Node* temp = head;
 
     // traverse the whole linked list
