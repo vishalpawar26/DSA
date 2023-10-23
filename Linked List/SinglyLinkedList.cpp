@@ -26,18 +26,36 @@ class Node {
     }
 };
 
-void insertAtHead(Node* &head, int data) {
-    // create a new node
-    Node* temp = new Node(data);
+void insertAtHead(Node* &head, Node* &tail, int data) {
+    // if the linked list is empty
+    if (head == NULL) {
+        // create a new node
+        Node* temp = new Node(data);
+        head = temp;
+        tail = temp;
+    }
+    else {
+        // create a new node
+        Node* temp = new Node(data);
 
-    // point it to the head
-    temp -> next = head;
+        // point it to the head
+        temp -> next = head;
 
-    // update the head
-    head = temp;
+        // update the head
+        head = temp;
+    }
 }
 
-void insertAtTail(Node* &tail, int data) {
+void insertAtTail(Node* &head, Node* &tail, int data) {
+    // if the linked list is empty
+    if (tail == NULL) {
+        // create a new node
+        Node* temp = new Node(data);
+        head = temp;
+        tail = temp;
+    }
+
+
     // create a new node
     Node* temp = new Node(data);
 
@@ -51,7 +69,7 @@ void insertAtTail(Node* &tail, int data) {
 void insertAtPosition(Node* &head, Node* &tail, int position, int data) {
     // insert at the start
     if (position == 1) {
-        insertAtHead(head, data);
+        insertAtHead(head, tail, data);
         return;
     }
 
@@ -67,7 +85,7 @@ void insertAtPosition(Node* &head, Node* &tail, int position, int data) {
 
     // insert at the end
     if (temp -> next == NULL) {
-        insertAtTail(tail, data);
+        insertAtTail(head, tail, data);
         return;
     }
 
@@ -166,20 +184,18 @@ void print(Node* &head) {
 }
 
 int main() {
-    Node* node = new Node(10);
+    Node* head = NULL;
+    Node* tail = NULL;
 
-    Node* head = node;
-    Node* tail = node;
-
-    insertAtHead(head, 20);
-    insertAtHead(head, 30);
-    insertAtTail(tail, 5);
+    insertAtHead(head, tail, 20);
+    insertAtHead(head, tail, 30);
+    insertAtTail(head, tail, 5);
     insertAtPosition(head, tail, 1, 45);
-    insertAtPosition(head, tail, 6, 15);
+    insertAtPosition(head, tail, 5, 15);
 
     print(head);
 
-    deleteAtPosition(6, head, tail);
+    deleteAtPosition(5, head, tail);
     print(head);
 
     deleteByValue(5, head, tail);
