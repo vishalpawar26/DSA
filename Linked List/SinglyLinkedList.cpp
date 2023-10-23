@@ -55,7 +55,6 @@ void insertAtTail(Node* &head, Node* &tail, int data) {
         tail = temp;
     }
 
-
     // create a new node
     Node* temp = new Node(data);
 
