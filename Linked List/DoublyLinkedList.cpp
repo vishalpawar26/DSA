@@ -25,16 +25,6 @@ class Node {
     }
 };
 
-void print(Node* &head) {
-    Node* temp = head;
-
-    while (temp != NULL) {
-        cout << temp -> data << " ";
-        temp = temp -> next;
-    }
-    cout << endl;
-}
-
 int getLength(Node* &head) {
     Node* temp = head;
 
@@ -44,6 +34,26 @@ int getLength(Node* &head) {
         temp = temp -> next;
     }
     return len;
+}
+
+void print(Node* &head, Node* &tail) {
+    // empty list
+    if (head == NULL) {
+        cout << "The linked list is empty!" << endl;
+        return;
+    }
+
+    Node* temp = head;
+
+    while (temp != NULL) {
+        cout << temp -> data << " ";
+        temp = temp -> next;
+    }
+    cout << endl;
+
+    cout << "Head: " << head -> data << endl;
+    cout << "Tail: " << tail -> data << endl;
+    cout << "Length of the doubly linked list is: " << getLength(head) << endl;
 }
 
 void insertAtHead(Node* &head, Node* &tail, int data) {
@@ -159,29 +169,55 @@ void deleteAtPosition(int position, Node* &head, Node* &tail) {
     }
 }
 
+void deleteByValue(int value, Node* &head, Node* &tail) {
+    // delete the first node
+    if (value == head->data) {
+        // create a temp node
+        Node* temp = head;
+
+        // update the head and delete the node
+        temp -> next -> prev = NULL;
+        head = temp -> next;
+        temp -> next = NULL;
+
+        delete temp;
+    }
+    else {
+        // delete the node other than the first node
+        Node* current = head;
+        Node* previous = NULL;
+
+        // traverse the linked list
+        while (value != current -> data) {
+            previous = current;
+            current = current -> next;
+        }
+
+        // update the tail
+        if (current -> next == NULL) {
+            tail = previous;
+        }
+
+        // delete the node
+        current -> prev = NULL;
+        previous -> next = current -> next;
+        current -> next = NULL;
+        delete current;
+    }
+}
+
 int main() {
     Node* head = NULL;
     Node* tail = NULL;
 
-    print(head);
-
     insertAtHead(head, tail, 20);
-    print(head);
-
-    insertAtHead(head, tail, 30);
-    print(head);
-
     insertAtTail(head, tail, 25);
-    print(head);
+    insertAtPosition(3, head, tail, 35);
+    print(head, tail);
 
-    insertAtPosition(4, head, tail, 35);
-    print(head);
+    deleteAtPosition(1, head, tail);
+    deleteByValue(25, head, tail);
+    print(head, tail);
 
-    deleteAtPosition(4, head, tail);
-    print(head);
-
-    cout << "Head: " << head -> data << endl;
-    cout << "Tail: " << tail -> data << endl;
-    cout << "Length of the doubly linked list is: " << getLength(head) << endl;
     return 0;
 }
