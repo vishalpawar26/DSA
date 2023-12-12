@@ -206,6 +206,22 @@ void deleteByValue(int value, Node* &head, Node* &tail) {
     }
 }
 
+void reverse(Node* &head, Node* &tail) {
+    Node* previousNode = NULL;
+    Node* currentNode = head;
+    Node* nextNode = NULL;
+
+    while (currentNode != NULL) {
+        nextNode = currentNode->next;
+        currentNode->next = previousNode;
+        currentNode->prev = nextNode;
+        previousNode = currentNode;
+        currentNode = nextNode;
+    }
+    tail = head;
+    head = previousNode;
+}
+
 int main() {
     Node* head = NULL;
     Node* tail = NULL;
